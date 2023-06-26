@@ -1,0 +1,13 @@
+Kafka Topics,Consumer Group Id,Monitor Type,Alert Threshold,Recovery Threshold,Environment,Notification Email
+topic1,group1,consumer down,,,snp-ats,mark.doe@example.com
+topic2,group2,consumer down,,,snp-atn,mark.doe@example.com
+topic3,group3,consumer down,,,oz,mark.doe@example.com
+topic4,group4,consumer down,,,cpz,mark.doe@example.com
+topic1,group1,consumer lag,100,50,snp-ats,mark.doe@example.com
+topic2,group2,consumer lag,100,50,snp-atn,mark.doe@example.com
+topic3,group3,consumer lag,100,50,oz,mark.doe@example.com
+topic4,group4,consumer lag,100,50,cpz,mark.doe@example.com
+topic1,,producer error rate,0.1,0.05,snp-ats,mark.doe@example.com
+topic2,,producer error rate,0.1,0.05,snp-atn,mark.doe@example.com
+topic3,,producer error rate,0.1,0.05,oz,mark.doe@example.com
+topic4,,producer error rate,0.1,0.05,cpz,mark.doe@example.com

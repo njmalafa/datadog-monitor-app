@@ -11,6 +11,8 @@ export class AppComponent {
   file: File | null = null;
   DD_API_KEY = '<Your Datadog API Key>';
   DD_APP_KEY = '<Your Datadog Application Key>';
+  fileToUpload!: File | null;
+  title: any;
 
   constructor(private http: HttpClient, private papa: Papa) {}
 

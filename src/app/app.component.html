@@ -1,5 +1,13 @@
 <div style="text-align:center">
   <h1>Welcome to DataDog Monitor Creator!</h1>
-  <input type="file" (change)="handleFileInput($event.target.files)">
-  <button (click)="uploadFileToActivity()">Upload File</button>
+  
 </div>
+<div style="width:50%;margin-left:auto;margin-right:auto"><input type="file" #csvFileData/>
+<div style="margin: 10px;">
+  <!-- <select [(ngModel)] = "selectedItem" (change)="onItemSelected()" style="margin: 10px;">
+    <option *ngFor="let item of listItems" [value]="item">{{item}}</option>
+  </select> -->
+  <button (click)="uploadCSV(csvFileData)">Upload File</button>
+</div>
+</div>
+

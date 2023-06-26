@@ -36,12 +36,12 @@ onItemSelected():void{
         parsedData.forEach((row: any[] , index: number) => {
                   if (!row || row.length === 0 || !index) return;
                   let inputData = {
-                    'Monitor Type': row[0],
-                    'Environment': row[1],
-                    'Kafka Topics': row[2],
-                    'Consumer Group Id': row[3],
-                    'Alert Threshold': parseFloat(row[4]),
-                    'Recovery Threshold': parseFloat(row[5]),
+                    'Kafka Topics': row[0],
+                    'Consumer Group Id': row[1],
+                    'Monitor Type': row[2],
+                    'Alert Threshold': parseFloat(row[3]),
+                    'Recovery Threshold': parseFloat(row[4]),
+                    'Environment': row[5],                    
                     'Notification Email': row[6]
                   };
         

@@ -10,8 +10,8 @@ import { Papa } from 'ngx-papaparse';
 })
 export class AppComponent {
   file: File | null = null;
-  DD_API_KEY = 'xxxxxxx';
-  DD_APP_KEY = 'xxxxxxx';
+  DD_API_KEY = 'XXXX';
+  DD_APP_KEY = 'XXXX';
   selectedItem:string;
   listItems:string[] = ['oz','snp-ats','snp-atn','cpz']
 
@@ -41,14 +41,14 @@ onItemSelected():void{
                     'Monitor Type': row[2],
                     'Alert Threshold': parseFloat(row[3]),
                     'Recovery Threshold': parseFloat(row[4]),
-                    'Environment': row[5],                    
+                    'Environment': row[5],
                     'Notification Email': row[6]
                   };
-        
-                  // let monitorType = inputData['Monitor Type'].replace(/ /g, '_');
-                  let monitorType = 'consumer_down';
+
+                  let monitorType = inputData['Monitor Type'].replace(/ /g, '_');
+                  //let monitorType = 'consumer_down';
                   let query, name;
-        
+
                   // These should be modified according to your actual query structure
                   if (monitorType === 'consumer_down') {
                     query = `sum(last_5m):avg:kafka.consumer.${monitorType}.consumer_running{environment:${inputData['Environment']},topic:${inputData['Kafka Topics']},consumer_group_id:${inputData['Consumer Group Id']}} by {host} < 1`;
@@ -60,7 +60,7 @@ onItemSelected():void{
                     query = `avg(last_5m):sum:kafka.producer.${monitorType}.produce_error{environment:${inputData['Environment']},topic:${inputData['Kafka Topics']}} > ${inputData['Alert Threshold']}`;
                     name = `${inputData['Kafka Topics']} ${inputData['Monitor Type']}`;
                   }
-        
+
                   let options = {
                               query,
                               name,
@@ -91,9 +91,9 @@ onItemSelected():void{
                             };
                             console.log(options)
                             this.createMonitor(options);
-                          });                        
+                          });
                         };
-  } 
+  }
 
   createMonitor(options: any) {
     const headers = new HttpHeaders()

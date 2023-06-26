@@ -63,6 +63,10 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "datadog-monitor-app:build:development",
+            "host": "192.168.1.194"
+          },
           "configurations": {
             "production": {
               "browserTarget": "datadog-monitor-app:build:production"

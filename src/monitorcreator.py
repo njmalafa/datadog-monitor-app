@@ -10,7 +10,7 @@ logging.basicConfig(filename='monitor_creation.log', level=logging.DEBUG)
 
 # Datadog API credentials
 OPTIONS = {
-    
+
 }
 
 initialize(**OPTIONS)
@@ -60,8 +60,8 @@ def create_monitor(row):
 
         if monitor_type.lower() not in MONITOR_TYPES:
             raise ValueError(f"Invalid monitor type '{monitor_type}'.")
-        
-        
+
+
         options = format_monitor_options(monitor_type, row)
         query = options.pop("query")
         print(query)
@@ -128,9 +128,7 @@ def main():
             create_monitor(row)
 
     except Exception as e:
-        print(f"Failed to create monitors. Error: {str(e)}") 
+        print(f"Failed to create monitors. Error: {str(e)}")
 
 if __name__ == '__main__':
     main()
-
-

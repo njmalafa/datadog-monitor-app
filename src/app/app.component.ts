@@ -16,6 +16,8 @@ export class AppComponent {
   selectedItem:string;
   listItems:string[] = ['oz','snp-ats','snp-atn','cpz'];
   monitorType :any;
+  successMessage:boolean=false;
+  errorMessage:boolean=false;
 
   constructor(private http: HttpClient, private papa: Papa) {
     this.selectedItem = this.listItems[0];
@@ -111,10 +113,18 @@ onItemSelected():void{
         const blob = new Blob([responseObj],{ type:'application/json'});
         const fileName = response.name;
         saveAs(blob, fileName);
+        this.successMessage= true;
+        setTimeout(() =>{
+          this.successMessage = false;
+        },5000);
       }, error => {
         console.error(error);
+        this.errorMessage= true;
+        setTimeout(() =>{
+          this.errorMessage = false;
+        },5000);
       });
-     
+    
   }
 }
 

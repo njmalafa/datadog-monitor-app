@@ -102,9 +102,14 @@ onItemSelected():void{
   createMonitor(options: any) {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
+      .set('Accept','application/json')
       .set('DD-API-KEY', this.DD_API_KEY)
       .set('DD-APPLICATION-KEY', this.DD_APP_KEY)
-      .set('Access-Control-Allow-Methods','GET,POST,PUT,DELETE');
+      .set('Access-Control-Allow-Methods','GET,POST,PUT,DELETE')
+      .set('Access-Control-Allow-Origin', '*')
+      .set('Host', 'api.datadoghq.com')
+      .set('Accept-Encoding', 'gzip, deflate, br')
+      .set('Connection', 'keep-alive');
 
       this.http.post('https://api.datadoghq.com/api/v1/monitor', JSON.stringify(options), { headers })
       .subscribe((response : any) => {

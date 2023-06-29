@@ -6,10 +6,14 @@ import { AppComponent } from './app.component';
 // Necessary import
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ManualUploadComponent } from './manual-upload/manual-upload.component';
+import { BulkUploadComponent } from './bulk-upload/bulk-upload.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ManualUploadComponent,
+    BulkUploadComponent
   ],
   imports: [
     BrowserModule,

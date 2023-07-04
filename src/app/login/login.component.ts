@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { HttpClient , HttpHeaders } from '@angular/common/http';
 import { OnInit } from '@angular/core';
+import  axios  from 'axios';
+import { Observable } from 'rxjs';
 // import { createClient } from 'ldapjs-client';
 
 @Component({
@@ -15,55 +17,33 @@ export class LoginComponent {
   successMessage:boolean = false;
   errorMessage:boolean = false;
   loadHomepage = false;
+  selectedUser:any;
+  userRoleBindings:any = {}; 
+  username: any;
+  user: any;
   constructor(private http: HttpClient){}
 
   ngOnInit(){
    
   }
 
+  getUser(username: string, password: string): Observable<any> {
+    const url = `/users/${username}/${password}`;
+    return this.http.get<any>(url);
+  }
 
-  loginForm(){
-
-    if(this.isLoginValid()){
-      const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      // .set('DD-API-KEY', this.DD_API_KEY)
-      // .set('DD-APPLICATION-KEY', this.DD_APP_KEY)
-      .set('Access-Control-Allow-Methods','GET,POST,PUT,DELETE');
-  
-      this.http.post('/authenticate', JSON.stringify(this.loginData), { headers })
-      .subscribe((response : any) => {
-        console.log(response,"response")
-        this.successMessage= true;
-        if(response.message === 'Authentication successful'){
-          this.loginData = {};
-          this.successMessage = true;
-          this.loadHomepage = true;
-        }
-        setTimeout(() =>{
-          this.successMessage = false;
-        },5000);
-      }, error => {
-        this.errorMessage = true;
-        this.loadHomepage = false;
+  searchUser() {
+    this.getUser(this.loginData.username,this.loginData.password).subscribe(
+      (response) => {
+        this.user = response;
+        console.log(this.user,"user");
+      },
+      (error) => {
         console.log(error);
-        this.errorMessage= true;
-        setTimeout(() =>{
-          this.errorMessage = false;
-        },5000);
-      });
-    } else{
-      console.log('Invalid Form');
-      console.log(this.loginError);
-    }
+      }
+      
+    );
   }
-
-  isLoginValid():Boolean {
-    let isValid=true;
-    return isValid;
-  }
-
-  
   }
   
 

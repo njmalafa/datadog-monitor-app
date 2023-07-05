@@ -6,24 +6,24 @@
     <div *ngIf="!loadHomepage" class="row mt-2 box">
        
         <div class="mt-3 login-box" align-items-center>
-          <h5 class="mb-3">Login to Create Monitor/s</h5>
+          <h5 class="mb-3">Please Enter Below Details</h5>
           <hr>
             <form>
                 <div class="form-group">
-                  <label for="username">Username</label>
-                  <input type="text" class="form-control" name="username" id="username" [(ngModel)]="loginData.username" aria-describedby="emailHelp" placeholder="Enter username">
+                  <label for="api_key">API Key</label>
+                  <input type="text" class="form-control mt-1" name="api_key" id="api_key" [(ngModel)]="loginData.api_key" aria-describedby="emailHelp" placeholder="Enter API Key">
                 </div>
                 <div class="form-group">
-                  <label for="password">Password</label>
-                  <input type="password" class="form-control" name="password" id="password" [(ngModel)]="loginData.password" placeholder="Password">
+                  <label for="app_key">Password</label>
+                  <input type="text" class="form-control" name="app_key" id="app_key" [(ngModel)]="loginData.app_key" placeholder="APP Key">
                 </div>
                 <!-- <div class="form-group form-check">
                   <input type="checkbox" class="form-check-input" id="exampleCheck1">
                   <label class="form-check-label" for="exampleCheck1">Check me out</label>
                 </div> -->
-                <button type="submit" class="btn btn-primary mt-3 mb-1" (click)="loginForm()">Login</button>
+                <button type="submit" class="btn btn-primary mt-3 mb-1" (click)="submit()">Login</button>
               </form>
-              <span *ngIf="successMessage"class="success-message">File uploaded and downloaded as JSON successfully!   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+              <!-- <span *ngIf="successMessage"class="success-message">File uploaded and downloaded as JSON successfully!   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                 <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
               </svg> </span>
@@ -31,7 +31,7 @@
               <span *ngIf="errorMessage"class="error-message mt-2">Invalid Credentials  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-              </svg></span>
+              </svg></span> -->
         </div>
 
     </div>

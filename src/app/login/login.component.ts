@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { HttpClient , HttpHeaders } from '@angular/common/http';
 import { OnInit } from '@angular/core';
+import { DataService } from 'src/shared/data-service';
+import { Router } from '@angular/router';
 // import { createClient } from 'ldapjs-client';
 
 @Component({
@@ -10,19 +12,20 @@ import { OnInit } from '@angular/core';
 })
 export class LoginComponent {
 
+  DD_API_KEY : any;
+  DD_APP_KEY : any;
   loginData:any = {};
   loginError:any = {};
   successMessage:boolean = false;
   errorMessage:boolean = false;
   loadHomepage = false;
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient, private dataService:DataService, private router:Router){}
 
   ngOnInit(){
    
   }
 
-
-
+  
   // loginForm(){
 
   //   if(this.isLoginValid()){
@@ -66,6 +69,12 @@ export class LoginComponent {
 
   submit(){
     console.log(this.loginData,"API Key and APP Key Details");
+    this.DD_API_KEY = this.loginData.api_key;
+    this.DD_APP_KEY = this.loginData.app_key;
+    
+    this.dataService.setData(this.loginData);
+    this.router.navigate(["/home"]);
+    
   }
   }
   

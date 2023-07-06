@@ -11,6 +11,7 @@ import { ManualUploadComponent } from './manual-upload/manual-upload.component';
 import { BulkUploadComponent } from './bulk-upload/bulk-upload.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { LoginComponent } from './login/login.component';
   imports: [
     BrowserModule,
     HttpClientModule, // import HttpClientModule
-    FormsModule
+    FormsModule,
+    AppRoutingModule
     // createClient
   ],
   providers: [],

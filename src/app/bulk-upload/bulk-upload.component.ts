@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { Papa } from 'ngx-papaparse';
 import { saveAs } from 'file-saver';
+import { DataService } from 'src/shared/data-service';
 
 @Component({
   selector: 'app-bulk-upload',
@@ -11,17 +12,24 @@ import { saveAs } from 'file-saver';
 })
 export class BulkUploadComponent {
   file: File | null = null;
-  DD_API_KEY = 'XXXX';
-  DD_APP_KEY = 'XXXX';
+  data: any;
  
   monitorType :any;
   successMessage:boolean=false;
   errorMessage:boolean=false;
+  DD_API_KEY : any;
+  DD_APP_KEY : any;
 
-  constructor(private http: HttpClient, private papa: Papa) {
+  constructor(private http: HttpClient, private papa: Papa, private dataService:DataService) {
     
   }
 
+  ngOnInit(){
+    this.data = this.dataService.getData();
+    console.log(this.data,"data recieved")
+    this.DD_API_KEY = this.data.api_key;
+    this.DD_APP_KEY = this.data.app_key;
+  }
 
   uploadCSV(csvFileData : HTMLInputElement): void{
     const file: File | any = csvFileData.files && csvFileData.files[0];
@@ -99,8 +107,8 @@ export class BulkUploadComponent {
   createMonitor(options: any) {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
-      // .set('DD-API-KEY', this.DD_API_KEY)
-      // .set('DD-APPLICATION-KEY', this.DD_APP_KEY)
+      .set('DD-API-KEY', this.DD_API_KEY)
+      .set('DD-APPLICATION-KEY', this.DD_APP_KEY)
       .set('Access-Control-Allow-Methods','GET,POST,PUT,DELETE');
 
       this.http.post('https://jsonplaceholder.typicode.com/posts', JSON.stringify(options), { headers })

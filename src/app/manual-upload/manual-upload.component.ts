@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { Papa } from 'ngx-papaparse';
+import { DataService } from 'src/shared/data-service';
 
 @Component({
   selector: 'app-manual-upload',
@@ -17,13 +18,21 @@ export class ManualUploadComponent {
   formErrors : any = {};
   successMessage:boolean=false;
   errorMessage:boolean=false;
+  data:any;
+  DD_API_KEY : any;
+  DD_APP_KEY : any;
+  
 
-  constructor(private http: HttpClient, private papa: Papa) {
+  constructor(private http: HttpClient, private papa: Papa, private dataService:DataService) {
     this.selectedMointorItem = this.monitorListItems[0];
     this.selectedEnvItem = this.envListItems[0];
   }
 
-
+  ngOnInit(){
+    this.data = this.dataService.getData();
+    this.DD_API_KEY = this.data.api_key;
+    this.DD_APP_KEY = this.data.app_key;
+  }
   onMonitorTypeSelected():void{
     // console.log('selected item : ',this.selectedMointorItem)
   }
@@ -37,8 +46,8 @@ export class ManualUploadComponent {
     if(this.isFormValid()){
       const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
-      // .set('DD-API-KEY', this.DD_API_KEY)
-      // .set('DD-APPLICATION-KEY', this.DD_APP_KEY)
+      .set('DD-API-KEY', this.DD_API_KEY)
+      .set('DD-APPLICATION-KEY', this.DD_APP_KEY)
       .set('Access-Control-Allow-Methods','GET,POST,PUT,DELETE');
   
       this.http.post('https://jsonplaceholder.typicode.com/posts', JSON.stringify(this.formData), { headers })

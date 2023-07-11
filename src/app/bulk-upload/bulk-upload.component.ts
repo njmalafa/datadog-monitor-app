@@ -123,8 +123,8 @@ export class BulkUploadComponent {
     console.log(arr)
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
-      // .set('DD-API-KEY', this.DD_API_KEY)
-      // .set('DD-APPLICATION-KEY', this.DD_APP_KEY)
+      .set('DD-API-KEY', this.DD_API_KEY)
+      .set('DD-APPLICATION-KEY', this.DD_APP_KEY)
       .set('Access-Control-Allow-Methods','GET,POST,PUT,DELETE');
       this.http.post('https://jsonplaceholder.typicode.com/posts', JSON.stringify(options), { headers })
       .subscribe((response : any) => {

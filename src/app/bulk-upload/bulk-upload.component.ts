@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component , ViewChild , ElementRef} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { Papa } from 'ngx-papaparse';
@@ -10,6 +10,8 @@ import { DataService } from 'src/shared/data-service';
   templateUrl: './bulk-upload.component.html',
   styleUrls: ['./bulk-upload.component.scss']
 })
+
+
 export class BulkUploadComponent {
   file: File | null = null;
   data: any;
@@ -19,6 +21,11 @@ export class BulkUploadComponent {
   errorMessage:boolean=false;
   DD_API_KEY : any;
   DD_APP_KEY : any;
+  downloadResponse:boolean=false;
+  fileName:any;
+  responseObj:any;
+  optionsArray:any[] = [];
+  @ViewChild('csvFileData', {static:false}) csvFileData!: ElementRef<HTMLInputElement>;
 
   constructor(private http: HttpClient, private papa: Papa, private dataService:DataService) {
     
@@ -39,7 +46,7 @@ export class BulkUploadComponent {
         let csvData = reader.result;
         let parsedData = this.papa.parse(csvData as string).data;
 
-
+        console.log(parsedData,"parsedData")
         parsedData.forEach((row: any[] , index: number) => {
                   if (!row || row.length === 0 || !index) return;
                   let inputData = {
@@ -98,30 +105,37 @@ export class BulkUploadComponent {
                               },
                               tags: [],
                               multi: true
-                            };
-                            this.createMonitor(options);
-                          });
                         };
+                            // if(options!=undefined){
+                            //   const optionsArrays = [];
+                            //   this.optionsArray = optionsArrays.push(options)
+                            //   console.log(optionsArrays,"optionsArray")
+                            // }
+                            
+                            this.createMonitor(options);
+              });
+      };
+                  // console.log(this.optionsArray,"option Array")
   }
  
   createMonitor(options: any) {
+    let arr: any[] = [];
+    console.log(arr)
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
-      .set('DD-API-KEY', this.DD_API_KEY)
-      .set('DD-APPLICATION-KEY', this.DD_APP_KEY)
+      // .set('DD-API-KEY', this.DD_API_KEY)
+      // .set('DD-APPLICATION-KEY', this.DD_APP_KEY)
       .set('Access-Control-Allow-Methods','GET,POST,PUT,DELETE');
-
       this.http.post('https://jsonplaceholder.typicode.com/posts', JSON.stringify(options), { headers })
       .subscribe((response : any) => {
-        console.log(response);
-        const responseObj = JSON.stringify(response);
-        const blob = new Blob([responseObj],{ type:'application/json'});
-        const fileName = response.name;
-        saveAs(blob, fileName);
-        this.successMessage= true;
-        setTimeout(() =>{
-          this.successMessage = false;
-        },5000);
+        this.responseObj = JSON.stringify(response);
+        
+        this.optionsArray.push(this.responseObj);
+
+        this.fileName = response.name;
+        this.downloadResponse= true;
+        this.csvFileData.nativeElement.value = '';
+        
       }, error => {
         console.error(error);
         this.errorMessage= true;
@@ -130,5 +144,12 @@ export class BulkUploadComponent {
         },5000);
       });
     
+  }
+
+  downloadres(){
+    this.optionsArray.forEach((item,index)=>{
+      const blob = new Blob([JSON.parse(this.optionsArray[index])],{ type:'application/json'});
+      saveAs(blob, JSON.parse(this.optionsArray[index]).name);
+    })
   }
 }
